@@ -178,20 +178,30 @@ window.updateStatus = async function () {
 
 function testWhatsApp() {
 
-  const sendWhatsApp = firebase.functions().httpsCallable("sendWhatsApp");
+const sendWhatsApp = firebase.functions().httpsCallable("sendWhatsApp");
 
-  sendWhatsApp({
-    phone: "+260973529051",
-    message: "🚚 Test from courier system"
-  })
-  .then((res) => {
-    console.log("SUCCESS:", res);
-    alert("WhatsApp sent ✔");
-  })
-  .catch((err) => {
-    console.error("ERROR FULL:", err);
-    alert(err.message || "WhatsApp failed");
-  });
+if (data.phone) {
 
+    const steps = [
+        "Created",
+        "Picked Up",
+        "In Transit",
+        "Border Clearance",
+        "Delivered"
+    ];
+
+    const statusText = steps[status] || "Updated";
+
+    sendWhatsApp({
+        phone: data.phone,
+        message: `📦 Your parcel ${id} status is now: ${statusText}`
+    })
+    .then(() => {
+        console.log("WhatsApp sent ✔");
+    })
+    .catch(err => {
+        console.error("WhatsApp error:", err);
+    });
+}
 }
 
