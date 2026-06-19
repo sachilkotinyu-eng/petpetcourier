@@ -179,7 +179,7 @@ window.updateStatus = async function () {
 function testWhatsApp() {
 
   firebase.functions().httpsCallable("sendWhatsApp")({
-    phone: "+26097XXXXXXX",
+    phone: "+260973529051",
     message: "🚚 Test from courier system"
   })
   .then(res => {
