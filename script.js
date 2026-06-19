@@ -178,17 +178,20 @@ window.updateStatus = async function () {
 
 function testWhatsApp() {
 
-  firebase.functions().httpsCallable("sendWhatsApp")({
+  const sendWhatsApp = firebase.functions().httpsCallable("sendWhatsApp");
+
+  sendWhatsApp({
     phone: "+260973529051",
     message: "🚚 Test from courier system"
   })
-  .then(res => {
+  .then((res) => {
     console.log("SUCCESS:", res);
     alert("WhatsApp sent ✔");
   })
-  .catch(err => {
-    console.error("ERROR:", err);
-    alert(err.message);
+  .catch((err) => {
+    console.error("ERROR FULL:", err);
+    alert(err.message || "WhatsApp failed");
   });
 
 }
+
