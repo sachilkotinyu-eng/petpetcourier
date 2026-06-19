@@ -1,0 +1,85 @@
+body{
+    font-family: Arial;
+    margin:0;
+    background:#f4f4f4;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background: #dc143c;
+    color:rgb(156, 10, 10);
+    padding:15px;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+}
+
+.nav-links a:hover{
+    text-decoration:underline;
+}
+
+/* SECTIONS */
+.section{
+    background: #fce300;
+    margin:20px auto;
+    padding:20px;
+    max-width:900px;
+    border-radius:10px;
+}
+
+/* INPUTS */
+input, select, button{
+    width:90%;
+    padding:10px;
+    margin-top:10px;
+}
+
+button{
+    background:red;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+/* TRACKING */
+.timeline-item{
+    padding:10px;
+    border-left:3px solid #ccc;
+    margin-top:10px;
+}
+
+.completed{color:green;font-weight:bold;}
+.active{color:orange;font-weight:bold;}
+
+.timeline-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-left: 4px solid gray;
+    padding-left: 10px;
+}
+
+.done {
+    border-left-color: green;
+    color: green;
+}
+
+.current {
+    border-left-color: orange;
+    font-weight: bold;
+}
+
+.pending {
+    border-left-color: #ccc;
+    color: #999;
+}
