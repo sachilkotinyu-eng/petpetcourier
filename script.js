@@ -175,3 +175,20 @@ window.updateStatus = async function () {
         msg.innerHTML = "Update failed";
     }
 };
+
+function testWhatsApp() {
+
+  firebase.functions().httpsCallable("sendWhatsApp")({
+    phone: "+26097XXXXXXX",
+    message: "🚚 Test from courier system"
+  })
+  .then((res) => {
+    console.log("SUCCESS:", res);
+    alert("WhatsApp sent ✔");
+  })
+  .catch((err) => {
+    console.error("ERROR:", err);
+    alert("Failed to send WhatsApp");
+  });
+
+}
