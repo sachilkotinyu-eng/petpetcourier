@@ -4,28 +4,21 @@ const twilio = require("twilio");
 
 admin.initializeApp();
 
-/* Twilio client */
 const client = twilio(
-  functions.config().twilio.sid,
-  functions.config().twilio.token
+  "AC34a4f564a62606990e12fae38e0d99ba",
+  "73b92ca72fb5555c9a15ae912fdddcf7"
 );
-
 exports.sendWhatsApp = functions.https.onCall(async (data) => {
 
-  try {
+  console.log("TEST RUN");
 
-    const phone = data.phone;
-    const message = data.message;
+  const res = await client.messages.create({
+    from: "whatsapp:+14155238886",
+    to: "whatsapp:+260973529051",
+    body: "TEST MESSAGE ONLY"
+  });
 
-    return await client.messages.create({
-      from: "whatsapp:+14155238886",
-      to: `whatsapp:${phone}`,
-      body: message
-    });
+  console.log(res);
 
-  } catch (error) {
-    console.error("TWILIO ERROR:", error);
-    throw new functions.https.HttpsError("internal", error.message);
-  }
-
+  return { success: true };
 });

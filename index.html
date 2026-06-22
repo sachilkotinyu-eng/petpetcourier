@@ -12,44 +12,62 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-functions-compat.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<script src="script.js"></script>
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar">
+<div class="navbar">
     <div class="logo">🚚 Pet Pet Courier</div>
+
+    <!-- Hamburger -->
+    <div class="navbar__toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
     <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#send">Send</a></li>
         <li><a href="#track">Track</a></li>
-        <li><a href="#support">Support</a></li>
+        <li><a href="support.html">Support</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
 
-<!-- HOME -->
-<section id="home" class="section">
-    <h1>Fast & Reliable Courier Service</h1>
-    <p>Zambia ↔ Zimbabwe Shipping Made Easy</p>
-</section>
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
 
-<!-- SEND PACKAGE -->
+<!-- HOME HERO -->
+<!-- Welcome Image Slider -->
+    <div class="slider">
+        <img src="images/delivery van .jpg" alt="Welcome Image 1">
+        <img src="images/pet pet.jpg" alt="Welcome Image 2">
+        <img src="images/petpet background.png" alt="Welcome Image 3">
+    </div>
+    <!-- SEND PACKAGE -->
 <section id="send" class="section">
     <h2>Send Package</h2>
 
-    <input id="sender" placeholder="Sender Name">
-    <input id="receiver" placeholder="Receiver Name">
+<input id="sender" placeholder="Sender">
+<input id="receiver" placeholder="Receiver">
+<input id="email" placeholder="Customer Email">
+<input id="item" placeholder="item">
+<input id="destination" placeholder="City">
 
-    <select id="route">
-        <option value="LUS-ZIM">Lusaka → Zimbabwe</option>
-        <option value="ZIM-LUS">Zimbabwe → Lusaka</option>
-    </select>
+<select id="route">
+  <option value="LUS-ZIM">Lusaka → Zimbabwe</option>
+  <option value="ZIM-LUS">Zimbabwe → Lusaka</option>
+</select>
 
-    <button onclick="createShipment()">Create Shipment</button>
-
+<button onclick="createShipment()">Create Shipment</button>
     <p id="output"></p>
 </section>
 
@@ -91,6 +109,7 @@
 
     <button onclick="updateStatus()">Update Status</button>
     <button onclick="testWhatsApp()">Test WhatsApp</button>
+    <button onclick="testEmail()">Test Email</button>
 
     <button onclick="logoutAdmin()">Logout</button>
 <div id="dashboard"></div>
@@ -100,22 +119,95 @@
 <script>
   emailjs.init("jzveyRfWcFGR_tTUZ");
 </script>
+
+    <li class="dropdown">
+    <a href="#">Our Company ▼</a>
+
+   
+        <a href="#about-petpet">About Pet Pet</a>
+        <a href="#portfolio">Our Portfolio</a>
+        <a href="#investors">Investor Relations</a>
+        <a href="#careers">Careers</a>
+        <a href="#contracts">Transportation Contracting Opportunities</a>
+        <a href="#petpet-services">PetPet Services</a>
+        <a href="#responsibility">Corporate Responsibility</a>
+        <a href="#newsroom">Newsroom</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+</li>
+
+</section>
+<!-- SUPPORT -->
+<section id="support" class="dropdown">
+     <li class="dropdown">
+    <a href="#">Our Company </a>
+
+   
+        <a href="aboutpetpet.html">About Pet Pet</a>
+        <a href="portifolio.html">Our Portfolio</a>
+        <a href="petpeservices.html">PetPet Services</a>
+        <a href="corporate.html">Corporate Responsibility</a>
+        
+    </div>
+
+
+    
 </section>
 <!-- SUPPORT -->
 <section id="support" class="section">
     <h2>Support</h2>
     <p>Need help with your parcel?</p>
-    <p>Email: support@petpetcourier.com</p>
+    <a href="mailto:sachilkotinyu@gmail.com?subject=Courier%20Inquiry"
+   style="padding:5px 15px;background:#ff6600;color:white;text-decoration:none;border-radius:5px;">
+   📧 Send Email
+</a>
+    
+</a>
+    
+    
 </section>
+</section>
+
+
+<script>
+const menu = document.getElementById("mobile-menu");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+menu.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+});
+
+overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+});
+</script>
 
 
 <!-- CONTACT -->
-<section id="contact" class="section">
+
+<section>
+    <section id="contact" class="section">
     <h2>Contact</h2>
-    <p>📞 +260 XXX XXX XXX</p>
-    <p>📍 Lusaka, Zambia</p>
+    <p>📞 +260 962680000 /+260973529051</p>
 </section>
 
-<script src="./script.js"></script>
+<footer class="footer">
+    <h3>Pet Pet Courier</h3>
+    <p>Fast • Reliable • Secure Deliveries</p>
+
+    <div class="social-icons">
+        <a href="https://t.me/yourusername" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="mailto:infolinkscare.com?subject=Courier%20Inquiry"><i class="fas fa-envelope"></i></a>
+        <a href="https://instagram.com/yourusername" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <p class="copy">© 2026 Pet Pet Courier. All Rights Reserved.</p>
+</footer>    
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,96 @@
+<section id="about-petpet" class="company-section">
+    <div class="company-card">
+        <h2>About Pet Pet</h2>
+        <p>
+            Pet Pet Courier Services is a trusted logistics company providing
+            fast, secure, and affordable parcel delivery services between
+            Zambia and Zimbabwe. We are committed to delivering parcels safely,
+            on time, and with exceptional customer service while connecting
+            businesses and individuals across borders.
+        </p>
+    </div>
+</section>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.company-section{
+    padding: 100px 10%;
+    background: linear-gradient(135deg,#f8f9fa,#ffffff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+}
+
+.company-card{
+    max-width:900px;
+    background:#fff;
+    padding:50px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    position:relative;
+    transition:0.4s ease;
+}
+
+.company-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+
+.company-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:6px;
+    background:linear-gradient(90deg,#ff6600,#ff9900);
+    border-radius:20px 20px 0 0;
+}
+
+.company-card h2{
+    font-size:2.8rem;
+    color:#222;
+    margin-bottom:25px;
+    font-weight:700;
+    position:relative;
+}
+
+.company-card h2::after{
+    content:'';
+    display:block;
+    width:80px;
+    height:4px;
+    background:#ff6600;
+    margin-top:12px;
+    border-radius:20px;
+}
+
+.company-card p{
+    font-size:1.15rem;
+    line-height:1.9;
+    color:#555;
+    font-weight:400;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .company-section{
+        padding:70px 20px;
+    }
+
+    .company-card{
+        padding:35px 25px;
+    }
+
+    .company-card h2{
+        font-size:2rem;
+    }
+
+    .company-card p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+}
+</style>

@@ -1,0 +1,120 @@
+<section id="about-petpet" class="company-section">
+    <div class="company-card">
+        <h2>Are You A New Customer</h2>
+       <p>
+                Welcome to Pet Pet Courier Services!
+            </p>
+            <p>
+                 We are a trusted courier
+                company specializing in the transportation of parcels to and from Lusaka.
+                Whether you are sending a package to family, friends, or business partners,
+                we make shipping simple, fast, and reliable.
+            </p>
+
+            <p>
+                To get started, visit our Dashboard and create a shipment order by
+                providing your parcel details, sender information, and destination.
+                Once your order has been submitted, our team will process your shipment
+                and keep you updated throughout the journey.
+            </p>
+
+            <p>
+                Every parcel is assigned a unique tracking number, allowing you to
+                monitor its progress at any time. Simply use the Track Parcel feature
+                on our website, enter your tracking number, and instantly view the
+                latest status of your shipment.
+            </p>
+
+            <p>
+                At Pet Pet Courier Services, we are committed to delivering your
+                parcels safely and on time. Start your shipment today and experience
+                hassle-free courier services.
+            </p>
+            <a href="index.html" class="learn-more">Get Started</a>
+
+    </div>
+</section>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.company-section{
+    padding: 100px 10%;
+    background: linear-gradient(135deg,#f8f9fa,#ffffff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+}
+
+.company-card{
+    max-width:900px;
+    background:#fff;
+    padding:50px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    position:relative;
+    transition:0.4s ease;
+}
+
+.company-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+
+.company-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:6px;
+    background:linear-gradient(90deg,#ff6600,#ff9900);
+    border-radius:20px 20px 0 0;
+}
+
+.company-card h2{
+    font-size:2.8rem;
+    color:#222;
+    margin-bottom:25px;
+    font-weight:700;
+    position:relative;
+}
+
+.company-card h2::after{
+    content:'';
+    display:block;
+    width:80px;
+    height:4px;
+    background:#ff6600;
+    margin-top:12px;
+    border-radius:20px;
+}
+
+.company-card p{
+    font-size:1.15rem;
+    line-height:1.9;
+    color:#555;
+    font-weight:400;
+}
+
+/* Mobile */
+@media(max-width:900px){
+    .company-section{
+        padding:70px 20px;
+    }
+
+    .company-card{
+        padding:35px 25px;
+    }
+
+    .company-card h2{
+        font-size:2rem;
+    }
+
+    .company-card p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+}
+</style>

@@ -18,31 +18,51 @@ const auth = firebase.auth();
 console.log("FIREBASE READY ✔");
 
 /* ================= CREATE SHIPMENT ================= */
-function createShipment(){
-
+function createShipment() {
     const sender = document.getElementById("sender").value;
     const receiver = document.getElementById("receiver").value;
+    const email = document.getElementById("email").value;
+    const item = document.getElementById("item").value;
+    const destination = document.getElementById("destination").value;
     const route = document.getElementById("route").value;
 
-    if(!sender || !receiver){
-        alert("Fill all fields");
-        return;
-    }
-
-    const trackingId = "PET-" + Math.floor(Math.random()*999999);
-
-    db.collection("shipments").doc(trackingId).set({
+    const shipmentData = {
         sender,
         receiver,
+        email,
+        item,
+        destination,
         route,
-        email: document.getElementById("email")?.value || "",
-        phone: document.getElementById("phone")?.value || "",
-        statusIndex: 0,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        status: "Pending"
+    };
 
-    document.getElementById("output").innerHTML =
-        "Tracking ID: " + trackingId;
+    const trackingId = "PET-" + Math.floor(100000 + Math.random() * 900000);
+
+db.collection("shipments").doc(trackingId).set(shipmentData)
+        .then((docRef) => {
+
+            // ✅ WhatsApp message (ADDED FEATURE ONLY)
+            const message =
+                `📦 *New Shipment Created*\n\n` +
+                `🆔 ID:Tracking ID: ${trackingId}\n` +
+                `👤 Sender: ${sender}\n` +
+                `📦 Receiver: ${receiver}\n` +
+                `📧 Email: ${email}\n` +
+                `📍 Pickup: ${item}\n` +
+                `🎯 Destination: ${destination}\n` +
+                `🚚 Route: ${route}`;
+
+            const phoneNumber = "260973529051";
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappURL, "_blank");
+
+        })
+        .catch((error) => {
+            console.error("Error creating shipment:", error);
+            alert("Failed to create shipment. Try again.");
+        });
 }
 
 /* ================= TRACK SHIPMENT ================= */
@@ -138,7 +158,18 @@ window.updateStatus = async function () {
 
         const data = doc.data();
 
-        // 1. Update Firestore
+        // ================= STATUS TEXT =================
+        const statusNames = [
+            "Created",
+            "Picked Up",
+            "In Transit",
+            "Border Clearance",
+            "Delivered"
+        ];
+
+        const statusText = statusNames[status] || "Unknown";
+
+        // ================= UPDATE FIREBASE =================
         await docRef.update({
             statusIndex: status,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -146,28 +177,56 @@ window.updateStatus = async function () {
 
         msg.innerHTML = "Status updated ✔";
 
-        // 2. EMAIL (EmailJS)
-        emailjs.send(
-            "service_tnz5iuk",
-            "template_7ud6j5a",
-            {
-                to_name: data.receiver || "Customer",
-                email: data.email,
-                trackingNumber: id,
-                status: status
-            }
-        ).catch(err => console.error("Email error:", err));
+        // ================= EMAILJS =================
+        if (data.email && data.email.trim() !== "") {
 
-        // 3. WHATSAPP (Firebase Function)
-        if (data.phone) {
-            sendWhatsApp({
-                phone: data.phone,
-                message: `📦 Your parcel ${id} status is now: ${status}`
-            }).then(() => {
-                console.log("WhatsApp sent ✔");
-            }).catch(err => {
-                console.error("WhatsApp error:", err);
+            emailjs.send(
+                "service_tnz5iuk",
+                "template_7ud6j5a",
+                {
+                    to_name: data.receiver || "Customer",
+                    email: data.email,
+                    trackingNumber: id,
+                    status: statusText,
+                    company: "Pet Pet Courier",
+                    message_title: "Shipment Update Notification",
+                    footer: "Thank you for trusting Pet Pet Courier 🚚"
+                }
+            )
+            .then(res => {
+                console.log("EMAIL SENT ✔", res);
+            })
+            .catch(err => {
+                console.error("EMAIL FAILED ❌", err);
             });
+        }
+
+                // ================= WHATSAPP =================
+        if (data.phone && data.phone.trim() !== "") {
+
+            const sendWhatsApp =
+                firebase.functions().httpsCallable("sendWhatsApp");
+
+            const cleanPhone = data.phone.replace(/\s/g, "");
+
+            sendWhatsApp({
+                phone: cleanPhone,
+                message: `📦 Pet Pet Courier Update
+
+Tracking ID: ${id}
+Status: ${statusText}
+
+Thank you for using our service 🚚`
+            })
+            .then(() => {
+                console.log("WhatsApp sent ✔");
+            })
+            .catch(err => {
+                console.error("WhatsApp error ❌", err);
+            });
+
+        } else {
+            console.log("No phone number — skipping WhatsApp");
         }
 
     } catch (error) {
@@ -175,33 +234,5 @@ window.updateStatus = async function () {
         msg.innerHTML = "Update failed";
     }
 };
-
-function testWhatsApp() {
-
-const sendWhatsApp = firebase.functions().httpsCallable("sendWhatsApp");
-
-if (data.phone) {
-
-    const steps = [
-        "Created",
-        "Picked Up",
-        "In Transit",
-        "Border Clearance",
-        "Delivered"
-    ];
-
-    const statusText = steps[status] || "Updated";
-
-    sendWhatsApp({
-        phone: data.phone,
-        message: `📦 Your parcel ${id} status is now: ${statusText}`
-    })
-    .then(() => {
-        console.log("WhatsApp sent ✔");
-    })
-    .catch(err => {
-        console.error("WhatsApp error:", err);
-    });
-}
-}
+// AFTER FIREBASE SUCCESS (DO NOT REMOVE YOUR EXISTING CODE ABOVE THIS)
 
