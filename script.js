@@ -53,11 +53,17 @@ db.collection("shipments").doc(trackingId).set(shipmentData)
                 `🎯 Destination: ${destination}\n` +
                 `🚚 Route: ${route}`;
 
-            const phoneNumber = "260973529051";
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const phoneNumbers = [
+    "260973529051",
+    "260965607600",
+    "260979637757"
+    
+];
 
-            window.open(whatsappURL, "_blank");
-
+phoneNumbers.forEach(number => {
+    const whatsappURL = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, "_blank");
+});
         })
         .catch((error) => {
             console.error("Error creating shipment:", error);

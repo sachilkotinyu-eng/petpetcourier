@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "c31ae725-3107-46cc-b524-808234c3b15b"
+      }
+    },
+    "android": {
+      "package": "com.sachil12.petpetcourier"
+    }
+  }
+}
